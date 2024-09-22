@@ -53,6 +53,10 @@ streamlit run setup.py
     │   │
     │   ├── models         <- Scripts to train models and then use trained models to make
     │   │   │                 predictions
+    │   │   ├── u2net
+    │   │   │   ├── model_utils.py
+    │   │   │   ├── u2net_model.py
+    │   │   │   └── u2net_processor.py
     │   │   ├── predict_model.py
     │   │   └── train_model.py
     │
