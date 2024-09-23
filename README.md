@@ -1,10 +1,18 @@
 # Marketplace-Image-Processor
 
 The project is a solution to an e-commerce problem: developing a system for processing photos from
-product cards on marketplaces, which performs the following actions:
+product cards on marketplaces. 
+
+<img src="data/pages_img/0page.png" border="5px solid red"/>
+
+
+It performs the following actions:
  - Removing the background
+<img src="data/pages_img/1page.png" border="5px solid red"/>
  - Replacing the background
+<img src="data/pages_img/2page.png" border="5px solid red"/>
  - Description generation
+<img src="data/pages_img/3page.png" border="5px solid red"/>
 
 ## Installation
 To run this project, you'll need to set up a Python environment and install the necessary dependencies.
@@ -32,6 +40,8 @@ streamlit run setup.py
     ├── LICENSE
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
+    │   ├── bg_themes      <- Background image styles.
+    │   ├── pages_img      <- Images, illustrating pages on Streamlit app.
     │   ├── processed      <- The final, canonical data sets for modeling.
     │   └── raw            <- The original, immutable data dump.
     │
@@ -52,12 +62,16 @@ streamlit run setup.py
     │   │   └── build_features.py
     │   │
     │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
+    │   │   │              predictions
+    │   │   │
     │   │   ├── u2net
     │   │   │   ├── model_utils.py
     │   │   │   ├── u2net_model.py
     │   │   │   └── u2net_processor.py
     │   │   ├── predict_model.py
     │   │   └── train_model.py
+    │   │
+    │   └── streamlit_front          <- Streamlit frontend code.
+    │   │   ├── pages                <- Web pages Streamlit.
     │
     └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
