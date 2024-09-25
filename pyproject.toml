@@ -14,6 +14,7 @@ matplotlib = "^3.9.2"
 torchvision = "^0.19.1"
 scikit-image = "^0.24.0"
 streamlit = "^1.38.0"
+opencv-python = "^4.10.0.84"
 
 
 [build-system]
