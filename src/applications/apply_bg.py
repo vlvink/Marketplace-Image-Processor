@@ -14,7 +14,9 @@ def apply_bg(user_image_path: str,
     """
     img = cv2.imread(user_image_path)
     mask = cv2.imread(image_mask_path, 0)
+    h, w = img.shape[:2]
     new_background = cv2.imread(bg_image_path)
+    new_background = cv2.resize(new_background, (w, h), cv2.INTER_NEAREST)
 
     _, binary_mask = cv2.threshold(mask, 128, 255, cv2.THRESH_BINARY)  # Increase the contrast of the mask
     kernel = np.ones((3, 3), np.uint8)  # Increase the mask to improve the edges

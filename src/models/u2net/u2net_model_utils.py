@@ -47,11 +47,13 @@ def normPRED(d: Tensor) -> Tensor:
     return dn
 
 
-def generate_mask(image_dataloader: DataLoader,
+def generate_mask(model,
+                  image_dataloader: DataLoader,
                   orig_image_path: str) -> None:
     """ Generating the output mask from U2Net model
     :param image_dataloader: Torch DataLoader with user's input image
     :param orig_image_path: Path to original image for resizing
+    :param model: U2Net model
     :return :
     """
     for i_test, data_test in enumerate(image_dataloader):
@@ -62,8 +64,7 @@ def generate_mask(image_dataloader: DataLoader,
         else:
             inputs_test = Variable(inputs_test)
 
-        net = U2NetModel()
-        net = net.get_net()
+        net = model
         d1, d2, d3, d4, d5, d6, d7 = net(inputs_test)
         pred = d1[:, 0, :, :]
         pred = normPRED(pred)

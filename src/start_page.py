@@ -1,6 +1,23 @@
 import streamlit as st
 from data.image_preprocessing import open_image
-from models.u2net.u2net_model_utils import make_u2net_dataloader
+from models.u2net.u2net_model_utils import make_u2net_dataloader, generate_mask
+from applications.apply_bg import apply_bg
+from models.u2net.u2net_init import U2NetModel
+from models.blip.blip_init import BLIPModel
+from models.blip.blip_model_utils import generate_caption
+from models.madlad400.madlad400_init import MADLAD400
+from models.madlad400.translate import translate_to_eng
+
+u2net_class = U2NetModel()
+model_u2net = u2net_class.get_net()
+
+blip_class = BLIPModel()
+model_blip = blip_class.get_net()
+processor_blip = blip_class.get_proc()
+
+madlad400_class = MADLAD400()
+model_madlad400 = madlad400_class.get_net()
+tokenizer_madlad400 = madlad400_class.get_tokenizer()
 
 with st.container(border=True):
     st.title(":orange[Market image processor App]")
@@ -20,6 +37,7 @@ with st.container(border=True):
 
     if uploaded_file is not None and display_im_button:
         user_input_image_dataloader = make_u2net_dataloader(uploaded_file)
+        generate_mask(model_u2net, user_input_image_dataloader, uploaded_file)
         user_input_image = open_image(uploaded_file)
         st.image(user_input_image)
 
@@ -34,23 +52,35 @@ with st.container(border=True):
         display_light_bg_button = st.button("Preview light background")
         if display_light_bg_button:
             st.image("data/bg_themes/light_bg_theme.jpg")
-        apply_bg = st.button("Apply background!")
-        if apply_bg:
-            pass
+        apply_background = st.button("Apply background!")
+        if apply_background:
+            apply_bg(uploaded_file, "data/bg_themes/light_bg_theme.jpg", 'models/predictions/u2net_masked_image.png')
 
-    if mode is not None and mode == "Room background":
-        display_room_bg_button = st.button("Preview room background")
-        if display_room_bg_button:
-            st.image("data/bg_themes/room_bg_theme.jpg")
+    if mode is not None and mode == "Dark background":
+        display_dark_bg_button = st.button("Preview dark background")
+        if display_dark_bg_button:
+            st.image("data/bg_themes/dark_bg_theme.JPG")
+        apply_background = st.button("Apply background!")
+        if apply_background:
+            apply_bg(uploaded_file, "data/bg_themes/dark_bg_theme.JPG", 'models/predictions/u2net_masked_image.png')
 
     if mode is not None and mode == "Custom background":
         uploaded_bg_file = st.file_uploader("Upload background image")
         display_custom_bg_button = st.button("Preview custom background")
         if display_custom_bg_button:
             st.image(uploaded_bg_file)
+        apply_background = st.button("Apply background!")
+        if apply_background:
+            apply_bg(uploaded_file, uploaded_bg_file, 'models/predictions/u2net_masked_image.png')
 
 with st.container(border=True):
     st.title(":orange[Step 3]: Final page. Generate result")
     st.write("Here is a place, where you can generate your result.")
 
     generate_button = st.button("Generate result!")
+    if generate_button:
+        ind_caption = generate_caption(model_blip, processor_blip, open_image('models/predictions/img_with_applied_mask.png'))
+        translated_text = translate_to_eng(model_madlad400, tokenizer_madlad400, ind_caption)
+
+with st.container(border=True):
+    st.image('models/predictions/img_with_applied_mask.png', caption=translated_text)
