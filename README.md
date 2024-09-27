@@ -11,15 +11,18 @@ It performs the following actions:
 ## Installation
 To run this project, you'll need to set up a Python environment and install the necessary dependencies.
 ### Prerequisites
-Make sure you have Python 3.11 or higher installed.
+Make sure you have Python 3.10 or higher installed.
 1. Clone the repository:
 ```commandline
 git clone https://github.com/vlvink/Marketplace-Image-Processor.git
-cd marketplace-image-processor
 ```
 2. Install the requirements
 ```commandline
 poetry install
+```
+3. Setting the poetry environment
+```commandline
+poetry shell
 ```
 
 ## Running the Code
@@ -33,24 +36,26 @@ For stopping session press the keyboard shortcut **Ctrl+C** in the terminal.
 
 
     ├── LICENSE
-    ├── README.md          <- The top-level README for developers using this project.
+    ├── README.md          <- The top-level README for developers using this project
     ├── data
-    │   ├── bg_themes      <- Background image styles.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
+    │   └── bg_themes      <- Background image styles.
+    │   │   ├── dark_bg_theme.JPG      <- Dark background image file
+    │   │   └── light_bg_theme.JPG     <- Light background image file
     │
     ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │   ├── params         <- Model's parameters in .pth files  
+    │   ├── params         <- Model's parameters in .pth files
+    │   │   ├── blip       <- Pretrain configuration for BLIP model
+    │   │   ├── u2net      <- Directory for u2net parameters
+    │   │   
     │   └── predictions    <- Model's predictions: intermediate model responses
     │
     ├── notebooks          <- Jupyter notebooks. Test code, training code
     │
-    ├── src                <- Source code for use in this project.
+    ├── src                <- Source code for use in this project
     │   ├── __init__.py    <- Makes src a Python module
     │   │
     │   ├── applications   <- Code with applications for Streamlit app
-    │   │   │   ├── apply_bg.py
-    │   │   │   ├── apply_caption.py
+    │   │   └── apply_bg.py
     │   │
     │   ├── start_page.py  <- Launches the Streamlit app to demonstrate how the models work
     │   │
@@ -59,13 +64,18 @@ For stopping session press the keyboard shortcut **Ctrl+C** in the terminal.
     │   │
     │   ├── models         <- Scripts to train models and then use trained models to make
     │   │   │              predictions
-    │   │   ├── blip
+    │   │   ├── blip       <- Code for initializing and using BLIP model (Image2Text)
     │   │   │   ├── blip_init.py
+    │   │   │   └── blip_model_utils.py
     │   │   │
-    │   │   ├── u2net
+    │   │   ├── u2net      <- Code for initializing and using U2-Net model (Semantic segmentation)
     │   │   │   ├── u2net_init.py
     │   │   │   ├── u2net_model_utils.py
     │   │   │   ├── u2net_model.py
     │   │   │   └── u2net_processor.py
+    │   │   │
+    │   │   ├── madlad400  <- Code for initializing and using MADLAD400 model (Translating)
+    │   │   │   ├── madlad400_init.py
+    │   │   │   └── translate.py
     │
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+    └── tox.ini            <- tox file with settings for running tox

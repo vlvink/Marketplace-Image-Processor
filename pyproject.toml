@@ -6,7 +6,7 @@ authors = ["Vladislav Vinokurov <vinokurov.va@phystech.edu>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.11"
+python = "^3.10"
 torch = "^2.4.1"
 numpy = "<2.0"
 pandas = "^2.2.3"

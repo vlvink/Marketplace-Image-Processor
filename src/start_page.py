@@ -19,6 +19,8 @@ madlad400_class = MADLAD400()
 model_madlad400 = madlad400_class.get_net()
 tokenizer_madlad400 = madlad400_class.get_tokenizer()
 
+uploaded_file = None
+
 with st.container(border=True):
     st.title(":orange[Market image processor App]")
     st.write(
@@ -46,7 +48,7 @@ with st.container(border=True):
     st.write("Here you can browse or choose an image for the background of card")
 
     mode = st.selectbox("Background mode",
-                        ("Light background", "Room background", "Custom background"))
+                        ("Light background", "Dark background", "Custom background"))
 
     if mode is not None and mode == "Light background":
         display_light_bg_button = st.button("Preview light background")
@@ -82,5 +84,5 @@ with st.container(border=True):
         ind_caption = generate_caption(model_blip, processor_blip, open_image('models/predictions/img_with_applied_mask.png'))
         translated_text = translate_to_eng(model_madlad400, tokenizer_madlad400, ind_caption)
 
-with st.container(border=True):
-    st.image('models/predictions/img_with_applied_mask.png', caption=translated_text)
+        with st.container(border=True):
+            st.image('models/predictions/img_with_applied_mask.png', caption=translated_text)
