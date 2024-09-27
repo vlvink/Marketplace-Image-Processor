@@ -15,6 +15,7 @@ Make sure you have Python 3.10 or higher installed.
 1. Clone the repository:
 ```commandline
 git clone https://github.com/vlvink/Marketplace-Image-Processor.git
+cd Marketplace-Image-Processor
 ```
 2. Install the requirements
 ```commandline
@@ -26,11 +27,23 @@ poetry shell
 ```
 
 ## Running the Code
+**Before running** code [download](https://drive.google.com/file/d/1ao1ovG1Qtx4b7EoskHXmi2E9rp5CHLcZ/view) file `u2net.pth` and put it into `models/params/u2net/`
+
 To run the code, you need to configure Streamlit app
 ```commandline
 streamlit run src/start_page.py
 ```
 For stopping session press the keyboard shortcut **Ctrl+C** in the terminal.
+
+## Demos
+#### Web app UI interface
+<image src="data/outsourceimg/uidemo.jpg" alt="UI interface">
+
+#### Intermediate results
+<image src="data/outsourceimg/intermres.jpg" alt="UI interface intermediate">
+
+#### Final output
+<image src="data/outsourceimg/FinalDemo.png" alt="Final output image">
 
 ## Project Organization
 

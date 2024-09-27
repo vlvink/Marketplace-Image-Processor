@@ -20,6 +20,7 @@ model_madlad400 = madlad400_class.get_net()
 tokenizer_madlad400 = madlad400_class.get_tokenizer()
 
 uploaded_file = None
+uploaded_bg_file = None
 
 with st.container(border=True):
     st.title(":orange[Market image processor App]")
@@ -38,6 +39,10 @@ with st.container(border=True):
     display_im_button = st.button("Display image")
 
     if uploaded_file is not None and display_im_button:
+        save_path = f"data/{uploaded_file.name}"
+        with open(save_path, "wb") as f:
+            f.write(uploaded_file.getbuffer())
+
         user_input_image_dataloader = make_u2net_dataloader(uploaded_file)
         generate_mask(model_u2net, user_input_image_dataloader, uploaded_file)
         user_input_image = open_image(uploaded_file)
@@ -56,7 +61,7 @@ with st.container(border=True):
             st.image("data/bg_themes/light_bg_theme.jpg")
         apply_background = st.button("Apply background!")
         if apply_background:
-            apply_bg(uploaded_file, "data/bg_themes/light_bg_theme.jpg", 'models/predictions/u2net_masked_image.png')
+            apply_bg(f"data/{uploaded_file.name}", "data/bg_themes/light_bg_theme.jpg", 'models/predictions/u2net_masked_image.png')
 
     if mode is not None and mode == "Dark background":
         display_dark_bg_button = st.button("Preview dark background")
@@ -64,16 +69,21 @@ with st.container(border=True):
             st.image("data/bg_themes/dark_bg_theme.JPG")
         apply_background = st.button("Apply background!")
         if apply_background:
-            apply_bg(uploaded_file, "data/bg_themes/dark_bg_theme.JPG", 'models/predictions/u2net_masked_image.png')
+            apply_bg(f"data/{uploaded_file.name}", "data/bg_themes/dark_bg_theme.JPG", 'models/predictions/u2net_masked_image.png')
 
     if mode is not None and mode == "Custom background":
         uploaded_bg_file = st.file_uploader("Upload background image")
         display_custom_bg_button = st.button("Preview custom background")
-        if display_custom_bg_button:
-            st.image(uploaded_bg_file)
+        if uploaded_bg_file is not None and display_custom_bg_button:
+            save_path = f"data/{uploaded_bg_file.name}"
+            with open(save_path, "wb") as f:
+                f.write(uploaded_bg_file.getbuffer())
+
+            bg_image = open_image(uploaded_bg_file)
+            st.image(bg_image)
         apply_background = st.button("Apply background!")
-        if apply_background:
-            apply_bg(uploaded_file, uploaded_bg_file, 'models/predictions/u2net_masked_image.png')
+        if apply_background and bg_image is not None:
+            apply_bg(f"data/{uploaded_file.name}", f"data/{uploaded_bg_file.name}", 'models/predictions/u2net_masked_image.png')
 
 with st.container(border=True):
     st.title(":orange[Step 3]: Final page. Generate result")
