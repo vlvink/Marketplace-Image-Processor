@@ -50,7 +50,7 @@ At the first launch, you will need to wait for some time until the models are in
 <image src="data/outsourceimg/intermres.jpg" alt="UI interface intermediate">
 
 #### Final output
-<image src="data/outsourceimg/FinalResult.png" alt="Final output image">
+<image src="data/outsourceimg/DemoFinalResult.png" alt="Final output image">
 
 ## Project Organization
 
