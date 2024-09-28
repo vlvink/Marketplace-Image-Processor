@@ -82,7 +82,7 @@ with st.container(border=True):
             bg_image = open_image(uploaded_bg_file)
             st.image(bg_image)
         apply_background = st.button("Apply background!")
-        if apply_background and bg_image is not None:
+        if apply_background and uploaded_bg_file is not None:
             apply_bg(f"data/{uploaded_file.name}", f"data/{uploaded_bg_file.name}", 'models/predictions/u2net_masked_image.png')
 
 with st.container(border=True):

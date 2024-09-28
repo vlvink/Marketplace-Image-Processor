@@ -35,6 +35,13 @@ streamlit run src/start_page.py
 ```
 For stopping session press the keyboard shortcut **Ctrl+C** in the terminal.
 
+### The first launch
+The first launch of the Web service on the Streamlit platform will be accompanied by loading weights and initializing models
+<image src="data/outsourceimg/weights1.png" alt="Params downloading">
+
+<image src="data/outsourceimg/weights2.png" alt="Params downloading">
+At the first launch, you will need to wait for some time until the models are initialized and the system is ready for use
+
 ## Demos
 #### Web app UI interface
 <image src="data/outsourceimg/uidemo.jpg" alt="UI interface">
